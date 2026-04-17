@@ -1,0 +1,19 @@
+:root {
+  --color-bg: #0f0f12;
+  --color-surface: #18181f;
+  --color-accent: #6c63ff;
+  --color-text: #e8e8f0;
+  --color-muted: #8a8a9a;
+  --color-danger: #ef4444;
+  --color-success: #34d399;
+
+  --font-main: "DM Sans", sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-lg: 40px;
+}
