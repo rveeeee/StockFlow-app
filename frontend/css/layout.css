@@ -27,6 +27,7 @@ body {
   border-radius: var(--radius-md);
 }
 .header-text {
+  width: 100%;
   text-align: center;
   margin: 0.5rem 0;
 }
@@ -36,6 +37,7 @@ body {
   line-height: 1.75rem;
 }
 .header-text p {
+  width: 100%;
   color: var(--color-muted);
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -44,19 +46,25 @@ form {
   width: 100%;
 }
 .auth-input,
-.modal-email {
+.modal-email,
+.modal-new-password,
+.modal-confirm-password {
   width: 100%;
   margin-top: 4px;
   margin-bottom: 4px;
 }
 .auth-input label,
-.modal-email {
+.modal-email label,
+.modal-new-password label,
+.modal-confirm-password label {
   color: var(--color-muted);
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 .auth-input input,
-.modal-email input {
+.modal-email input,
+.modal-new-password input,
+.modal-confirm-password input {
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-muted);
   background-color: #1f1f2a;
@@ -78,7 +86,28 @@ form {
   color: var(--color-accent);
   font: var(--font-main);
 }
-
+.btn-reset-password {
+  margin: 8px 0px;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: #10b981;
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-size: small;
+  transition: all 0.2s ease-in-out;
+}
+.btn-reset-password:hover {
+  background: #34d399;
+  box-shadow: 0 6px 15px rgba(52, 211, 153, 0.4);
+  transform: translateY(-2px);
+}
+.btn-reset-password:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+}
 .btn-sign-in,
 .btn-reset-code,
 .btn-verify-code {
@@ -126,7 +155,9 @@ form {
 }
 .password-container input::placeholder,
 .auth-input input::placeholder,
-.modal-email::placeholder {
+.modal-email::placeholder,
+.modal-new-password::placeholder,
+.modal-confirm-password::placeholder {
   font-size: small;
 }
 .auth-input label,
@@ -209,7 +240,9 @@ form {
 }
 .auth-input input[type="email"]:focus,
 .auth-input input[type="password"]:focus,
-.modal-email input[type="email"]:focus {
+.modal-email input[type="email"]:focus,
+.modal-new-password input[type="password"]:focus,
+.modal-confirm-password input[type="password"]:focus {
   outline: none;
   border-color: #6c63ff;
   color: white;
@@ -254,7 +287,8 @@ form {
   display: inline-block;
   transition: background-color 0.6s ease;
 }
-.dot:nth-child(1) {
+.dot:nth-child(1),
+#newPasswordModal .dot:nth-child(3) {
   background-color: var(--color-accent);
   width: 24px;
 }
@@ -330,13 +364,13 @@ form {
 .modal-back p a:hover {
   text-decoration: underline;
 }
-#verifyModal .first-step {
+#verifyModal .dot:nth-child(1) {
   height: 8px;
   width: 8px;
-  background-color: var(--color-accent);
-}
-#verifyModal .second-step {
   background-color: var(--color-success);
+}
+#verifyModal .dot:nth-child(2) {
+  background-color: var(--color-accent);
   width: 24px;
 }
 .six-container {
@@ -379,6 +413,7 @@ input[type="number"] {
   box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
   outline: none;
 }
+
 .verify-resend p span {
   color: var(--color-accent);
   cursor: pointer;
@@ -386,3 +421,45 @@ input[type="number"] {
 .verify-resend {
   width: 100%;
 }
+.new-password-logo {
+  padding: 1rem 1.25rem;
+  border-radius: var(--space-md);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  background: rgba(52, 211, 153, 0.1);
+}
+#newPasswordModal .first-step,
+#newPasswordModal .second-step {
+  height: 8px;
+  width: 8px;
+  background-color: var(--color-success);
+}
+.password-strength-container {
+  width: 100%;
+  display: flex;
+}
+.password-strength {
+  height: 4px;
+  width: 25%;
+  margin: 8px 4px;
+  background-color: #39393f;
+  border-radius: var(--space-md);
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.password-strength:nth-child(1),
+.password-strength:nth-child(2),
+.password-strength:nth-child(3) {
+  background-color: var(--color-success);
+}
+/* TEST ONLY */
+/* .password-strength:nth-child(1),
+.password-strength:nth-child(2),
+.password-strength:nth-child(3) {
+  height: 4px;
+  background-color: var(--color-surface);
+  width: 25%;
+  margin: 4px;
+  border-radius: var(--space-md);
+  display: inline-block;
+  transition: background-color 0.6s ease;
+} */

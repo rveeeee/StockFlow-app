@@ -1,6 +1,19 @@
 const passwordInput = document.querySelector("#password");
 const toggleButton = document.querySelector("#toggle-password");
+const forgotLink = document.querySelector(".forgot-password a");
+const closeButtons = document.querySelectorAll(".forgot-close-modal");
 
+const firstDots = document.querySelectorAll(".first-step");
+const secondDots = document.querySelectorAll(".second-step");
+const thirdDots = document.querySelectorAll(".third-step");
+
+const forgotModal = document.getElementById("forgotPasswordModal");
+const verifyModal = document.getElementById("verifyModal");
+const newPasswordModal = document.getElementById("newPasswordModal");
+
+const toggleNewPassword = document.querySelector("#toggle-password-new");
+const newPasswordShow = document.querySelector("#modal-new-password");
+// Toggle password visibility
 toggleButton.addEventListener("click", function () {
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
@@ -10,16 +23,22 @@ toggleButton.addEventListener("click", function () {
     toggleButton.textContent = "Show";
   }
 });
-const modal = document.getElementById("forgotPasswordModal");
-const forgotLink = document.querySelector(".forgot-password a");
-const closeButtons = document.querySelectorAll(".forgot-close-modal");
 
-// Open modal
+// MASTER FUNCTION TO SWITCH MODALS
+function openSpecificModal(targetModal) {
+  forgotModal.classList.remove("active");
+  verifyModal.classList.remove("active");
+  newPasswordModal.classList.remove("active");
+  targetModal.classList.add("active");
+}
+
+// Open forgot modal from login link
 forgotLink.addEventListener("click", (e) => {
   e.preventDefault();
-  modal.classList.add("active");
+  openSpecificModal(forgotModal);
 });
 
+// Close buttons inside modals
 closeButtons.forEach((btn) => {
   btn.addEventListener("click", function () {
     const modal = this.closest(".modal-overlay");
@@ -27,26 +46,31 @@ closeButtons.forEach((btn) => {
   });
 });
 
-// Close if user clicks the dark background
+// Close when clicking dark overlay background
 window.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.classList.remove("active");
+  if (e.target.classList.contains("modal-overlay")) {
+    e.target.classList.remove("active");
   }
 });
 
-const firstStep = document.querySelector(".first-step");
-const secondStep = document.querySelector(".second-step");
-const thirdStep = document.querySelector(".third-step");
-const forgotModal = document.getElementById("forgotPasswordModal");
-const verifyModal = document.getElementById("verifyModal");
-const setModal = document.getElementById("setModal");
-
-// FIRST MODAL
-firstStep.addEventListener("click", function () {
-  forgotModal.classList.add("active");
+// Progress dot navigation
+firstDots.forEach((dot) => {
+  dot.addEventListener("click", () => openSpecificModal(forgotModal));
 });
-// SECOND MODAL
-secondStep.addEventListener("click", function () {
-  forgotModal.classList.remove("active"); // hide first
-  verifyModal.classList.add("active"); // show second
+
+secondDots.forEach((dot) => {
+  dot.addEventListener("click", () => openSpecificModal(verifyModal));
+});
+
+thirdDots.forEach((dot) => {
+  dot.addEventListener("click", () => openSpecificModal(newPasswordModal));
+});
+toggleNewPassword.addEventListener("click", function () {
+  if (newPasswordShow.type === "password") {
+    newPasswordShow.type = "text";
+    toggleNewPassword.textContent = "Hide";
+  } else {
+    newPasswordShow.type = "password";
+    toggleNewPassword.textContent = "Show";
+  }
 });

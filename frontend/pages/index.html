@@ -325,11 +325,141 @@
           <button type="submit" class="btn-verify-code">Verify Code</button>
         </form>
         <div class="modal-back">
-          <p>Back to <a href="../pages/index.html">Sign in</a></p>
+          <p>Back to <a href="#">Enter email</a></p>
         </div>
       </div>
     </div>
     <!-- Verify OTP Modal End -->
+
+    <!-- Set New Password Modal -->
+    <div class="modal-overlay" id="newPasswordModal">
+      <div class="modal-content">
+        <!-- Close Button -->
+        <div class="forgot-close-modal">
+          <svg
+            fill="currentColor"
+            width="16px"
+            height="16px"
+            viewBox="-8.5 0 32 32"
+          >
+            <path
+              d="M8.48 16l5.84-5.84c0.32-0.32 0.32-0.84 0-1.2-0.32-0.32-0.84-0.32-1.2 0l-5.84 5.84-5.84-5.84c-0.32-0.32-0.84-0.32-1.2 0-0.32 0.32-0.32 0.84 0 1.2l5.84 5.84-5.84 5.84c-0.32 0.32-0.32 0.84 0 1.2 0.16 0.16 0.4 0.24 0.6 0.24s0.44-0.080 0.6-0.24l5.84-5.84 5.84 5.84c0.16 0.16 0.36 0.24 0.6 0.24 0.2 0 0.44-0.080 0.6-0.24 0.32-0.32 0.32-0.84 0-1.2l-5.84-5.84z"
+            ></path>
+          </svg>
+        </div>
+        <!-- Modal Logo -->
+        <div class="new-password-logo">
+          <svg
+            height="24px"
+            width="24px"
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 482.4 482.4"
+            xml:space="preserve"
+            fill="#000000"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                style="fill: #d6d6d6"
+                d="M398.4,162.4h-47.2C351.2,98.4,308,48,244.8,48S129.6,98.4,129.6,162.4H82.4 c0-88,72.8-161.6,161.6-161.6S398.4,74.4,398.4,162.4z"
+              ></path>
+              <path
+                style="fill: #a8a8a8"
+                d="M244.8,0c88.8,0,153.6,74.4,153.6,162.4h-47.2c0-64-43.2-115.2-106.4-115.2"
+              ></path>
+              <path
+                style="fill: #fca12a"
+                d="M436.8,419.2c0,36.8-25.6,63.2-62.4,63.2H115.2c-36.8,0-70.4-27.2-70.4-63.2V212 c0-36.8,33.6-65.6,70.4-65.6h260c36.8,0,62.4,28.8,62.4,65.6v207.2H436.8z"
+              ></path>
+              <path
+                style="fill: #e0861b"
+                d="M372.8,145.6c36.8,0,64,29.6,64,66.4v207.2c0,36.8-25.6,63.2-62.4,63.2H115.2 c-36.8,0-67.2-28-67.2-64.8"
+              ></path>
+              <path
+                style="fill: #ce6d0d"
+                d="M436.8,419.2v-32l-152-153.6l-64,170.4l81.6,78.4h72.8C411.2,482.4,436.8,455.2,436.8,419.2z"
+              ></path>
+              <path
+                style="fill: #4c5254"
+                d="M305.6,275.2c0-32.8-27.2-59.2-60-59.2s-60.8,26.4-60.8,59.2c0,22.4,12,41.6,28,51.2v60 c0,16,16,28.8,32,28.8c16,0,32-12.8,32-28.8v-60C292.8,316,305.6,296.8,305.6,275.2z"
+              ></path>
+              <path
+                style="fill: #2f423f"
+                d="M246.4,415.2c16,0,30.4-12.8,30.4-28.8v-60c16-10.4,28.8-29.6,28.8-51.2c0-32.8-26.4-59.2-59.2-59.2"
+              ></path>
+            </g>
+          </svg>
+        </div>
+        <!-- Modal Progress -->
+        <div class="modal-progress">
+          <span class="dot first-step"></span>
+          <span class="dot second-step"></span>
+          <span class="dot third-step"></span>
+        </div>
+
+        <div class="header-text">
+          <h1>Set new password?</h1>
+          <p>
+            Almost done. Choose a strong password for your StockFlow account.
+          </p>
+        </div>
+
+        <form action="">
+          <div class="modal-new-password">
+            <label for="modal-new-password">New Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="modal-new-password"
+                name="modal-new-password"
+                placeholder="••••••••••"
+                required
+              />
+              <button
+                type="button"
+                id="toggle-password-new"
+                aria-label="Toggle password visibility"
+              >
+                Show
+              </button>
+            </div>
+            <div class="password-strength-container">
+              <div class="password-strength"></div>
+              <div class="password-strength"></div>
+              <div class="password-strength"></div>
+              <div class="password-strength"></div>
+            </div>
+          </div>
+          <div class="modal-confirm-password">
+            <label for="modal-confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="modal-confirm-password"
+              name="modal-confirm-password"
+              placeholder="••••••••••"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-reset-password">
+            Reset Password
+          </button>
+        </form>
+
+        <div class="modal-back">
+          <p>Back to <a href="#">Verify Code</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- Set New Password Modal End -->
+
     <script src="../js/auth.js"></script>
   </body>
 </html>
