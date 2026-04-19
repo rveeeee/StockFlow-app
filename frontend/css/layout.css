@@ -20,11 +20,21 @@ body {
   padding: 1rem 2rem;
   margin: 2rem;
 }
-.auth-logo {
-  background: var(--color-accent);
+.logo-container,
+.register-logo {
   padding: var(--space-md);
   margin: var(--space-sm);
   border-radius: var(--radius-md);
+}
+.logo-container-purple {
+  background: var(--color-accent);
+}
+.register-logo-green {
+  background: var(--color-success);
+}
+.register-logo svg {
+  display: block;
+  margin: 0;
 }
 .header-text {
   width: 100%;
@@ -110,17 +120,27 @@ form {
 }
 .btn-sign-in,
 .btn-reset-code,
-.btn-verify-code {
+.btn-verify-code,
+.btn-create-account {
   width: 100%;
   padding: 0.75rem;
   border-radius: var(--radius-md);
-  background: var(--color-accent);
   color: white;
   font-weight: 500;
   border: none;
   cursor: pointer;
   font-size: small;
   transition: all 0.2s ease-in-out;
+}
+.btn-sign-in,
+.btn-reset-code,
+.btn-verify-code {
+  background: var(--color-accent);
+}
+
+.btn-create-green {
+  margin: 0.5rem 0;
+  background: var(--color-success);
 }
 .btn-sign-in:hover,
 .btn-reset-code:hover {
@@ -162,8 +182,8 @@ form {
 }
 .auth-input label,
 .modal-email label {
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: small;
+  margin-bottom: 0.25rem;
   display: inline-block;
 }
 .continue-with {
@@ -221,10 +241,14 @@ form {
   border-radius: 50%;
 }
 .create-account a,
-.modal-back a {
+.modal-back span {
+  cursor: pointer;
   text-decoration: none;
   color: var(--color-accent);
   font: bold;
+}
+.modal-back span:hover {
+  text-decoration: underline;
 }
 .create-account p,
 .modal-back p {
@@ -242,7 +266,8 @@ form {
 .auth-input input[type="password"]:focus,
 .modal-email input[type="email"]:focus,
 .modal-new-password input[type="password"]:focus,
-.modal-confirm-password input[type="password"]:focus {
+.modal-confirm-password input[type="password"]:focus,
+.auth-input input[type="text"]:focus {
   outline: none;
   border-color: #6c63ff;
   color: white;
@@ -300,11 +325,15 @@ form {
   font-weight: 600;
 }
 .modal-email p,
-.verify-resend p {
+.verify-resend p,
+.input-hint {
   color: var(--color-muted);
   font-size: x-small;
   text-align: center;
   margin: 4px;
+}
+.hint-left {
+  text-align: left;
 }
 .modal-back p a {
   text-decoration: none;
@@ -328,7 +357,9 @@ form {
   visibility: visible;
   backdrop-filter: blur(8px);
 }
-.modal-content {
+.modal-content,
+.verify-modal-content,
+.modal-content-new-password {
   background: var(--color-surface);
   width: 90%;
   max-width: 28rem;
@@ -348,9 +379,6 @@ form {
   backdrop-filter: blur(8px);
 }
 
-.modal-overlay.active .modal-content {
-  animation: slideInTop 1s ease 0s 1 normal forwards;
-}
 @keyframes slideInTop {
   0% {
     opacity: 0;
@@ -360,6 +388,37 @@ form {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.modal-overlay.active .modal-content {
+  animation: slideInTop 1s ease 0s 1 normal forwards;
+}
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.modal-overlay.active .verify-modal-content {
+  animation: slideInLeft 1s ease 0s 1 normal forwards;
+}
+@keyframes slideinRight {
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.modal-overlay.active .modal-content-new-password {
+  animation: slideinRight 1s ease 0s 1 normal forwards;
 }
 .modal-back p a:hover {
   text-decoration: underline;
@@ -421,6 +480,9 @@ input[type="number"] {
 .verify-resend {
   width: 100%;
 }
+.verify-resend p span:hover {
+  text-decoration: underline;
+}
 .new-password-logo {
   padding: 1rem 1.25rem;
   border-radius: var(--space-md);
@@ -451,15 +513,19 @@ input[type="number"] {
 .password-strength:nth-child(3) {
   background-color: var(--color-success);
 }
-/* TEST ONLY */
-/* .password-strength:nth-child(1),
-.password-strength:nth-child(2),
-.password-strength:nth-child(3) {
-  height: 4px;
-  background-color: var(--color-surface);
-  width: 25%;
-  margin: 4px;
-  border-radius: var(--space-md);
-  display: inline-block;
-  transition: background-color 0.6s ease;
-} */
+.password-strength-text {
+  color: var(--color-success);
+  font-size: x-small;
+}
+/* Register Styles */
+.name-container {
+  display: flex;
+  gap: 0.5rem;
+}
+.input-hint span {
+  color: var(--color-accent);
+  cursor: pointer;
+}
+.input-hint span:hover {
+  text-decoration: underline;
+}

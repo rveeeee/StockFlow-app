@@ -13,6 +13,9 @@ const newPasswordModal = document.getElementById("newPasswordModal");
 
 const toggleNewPassword = document.querySelector("#toggle-password-new");
 const newPasswordShow = document.querySelector("#modal-new-password");
+
+const backToEmail = document.querySelector("#back-email");
+const backToVerify = document.querySelector("#back-verify");
 // Toggle password visibility
 toggleButton.addEventListener("click", function () {
   if (passwordInput.type === "password") {
@@ -64,6 +67,13 @@ secondDots.forEach((dot) => {
 
 thirdDots.forEach((dot) => {
   dot.addEventListener("click", () => openSpecificModal(newPasswordModal));
+});
+
+backToEmail.addEventListener("click", function () {
+  openSpecificModal(forgotModal);
+});
+backToVerify.addEventListener("click", function () {
+  openSpecificModal(verifyModal);
 });
 toggleNewPassword.addEventListener("click", function () {
   if (newPasswordShow.type === "password") {

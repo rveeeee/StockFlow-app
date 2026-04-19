@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/layout.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/responsive.css" />
+    <link rel="stylesheet" href="/stockflow/frontend/css/reset.css" />
+    <link rel="stylesheet" href="/stockflow/frontend/css/variables.css" />
+    <link rel="stylesheet" href="/stockflow/frontend/css/layout.css" />
+    <link rel="stylesheet" href="/stockflow/frontend/css/components.css" />
+    <link rel="stylesheet" href="/stockflow/frontend/css/responsive.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -16,7 +16,7 @@
   </head>
   <body>
     <div class="auth-wrapper">
-      <div class="auth-logo">📦</div>
+      <div class="logo-container logo-container-purple">📦</div>
       <div class="header-text">
         <h1>Sign in to StockFlow</h1>
         <p>Manage your inventory with ease</p>
@@ -137,7 +137,7 @@
 
     <!-- Verify OTP Modal Start-->
     <div class="modal-overlay" id="verifyModal">
-      <div class="modal-content">
+      <div class="verify-modal-content">
         <div class="forgot-close-modal">
           <svg
             fill="currentColor"
@@ -325,7 +325,7 @@
           <button type="submit" class="btn-verify-code">Verify Code</button>
         </form>
         <div class="modal-back">
-          <p>Back to <a href="#">Enter email</a></p>
+          <p>Back to <span id="back-email">Enter email</span></p>
         </div>
       </div>
     </div>
@@ -333,7 +333,7 @@
 
     <!-- Set New Password Modal -->
     <div class="modal-overlay" id="newPasswordModal">
-      <div class="modal-content">
+      <div class="modal-content-new-password">
         <!-- Close Button -->
         <div class="forgot-close-modal">
           <svg
@@ -437,6 +437,7 @@
               <div class="password-strength"></div>
               <div class="password-strength"></div>
             </div>
+            <div class="password-strength-text"><p>Strong Password</p></div>
           </div>
           <div class="modal-confirm-password">
             <label for="modal-confirm-password">Confirm Password</label>
@@ -454,12 +455,12 @@
         </form>
 
         <div class="modal-back">
-          <p>Back to <a href="#">Verify Code</a></p>
+          <p>Back to <span id="back-verify">Verify Code</span></p>
         </div>
       </div>
     </div>
     <!-- Set New Password Modal End -->
 
-    <script src="../js/auth.js"></script>
+    <script src="/stockflow/frontend/js/auth.js"></script>
   </body>
 </html>
