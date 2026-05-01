@@ -1,86 +1,132 @@
-const passwordInput = document.querySelector("#password");
-const toggleButton = document.querySelector("#toggle-password");
-const forgotLink = document.querySelector(".forgot-password a");
-const closeButtons = document.querySelectorAll(".forgot-close-modal");
+document.addEventListener("DOMContentLoaded", () => {
+  // --- 1. SELECTION OF ELEMENTS ---
+  const registerForm = document.querySelector("#create-user");
+  const passwordInput = document.querySelector("#password");
+  const toggleButton = document.querySelector("#toggle-password");
 
-const firstDots = document.querySelectorAll(".first-step");
-const secondDots = document.querySelectorAll(".second-step");
-const thirdDots = document.querySelectorAll(".third-step");
+  // Forgot Password Modal Elements
+  const forgotLink = document.querySelector(".forgot-password a");
+  const forgotModal = document.getElementById("forgotPasswordModal");
+  const verifyModal = document.getElementById("verifyModal");
+  const newPasswordModal = document.getElementById("newPasswordModal");
+  const closeButtons = document.querySelectorAll(".forgot-close-modal");
 
-const forgotModal = document.getElementById("forgotPasswordModal");
-const verifyModal = document.getElementById("verifyModal");
-const newPasswordModal = document.getElementById("newPasswordModal");
+  // Modal Navigation
+  const backToEmail = document.querySelector("#back-email");
+  const backToVerify = document.querySelector("#back-verify");
 
-const toggleNewPassword = document.querySelector("#toggle-password-new");
-const newPasswordShow = document.querySelector("#modal-new-password");
-
-const backToEmail = document.querySelector("#back-email");
-const backToVerify = document.querySelector("#back-verify");
-// Toggle password visibility
-toggleButton.addEventListener("click", function () {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleButton.textContent = "Hide";
-  } else {
-    passwordInput.type = "password";
-    toggleButton.textContent = "Show";
+  // --- 2. PASSWORD TOGGLE LOGIC ---
+  if (toggleButton && passwordInput) {
+    toggleButton.addEventListener("click", function () {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      toggleButton.textContent = isPassword ? "Hide" : "Show";
+    });
   }
-});
 
-// MASTER FUNCTION TO SWITCH MODALS
-function openSpecificModal(targetModal) {
-  forgotModal.classList.remove("active");
-  verifyModal.classList.remove("active");
-  newPasswordModal.classList.remove("active");
-  targetModal.classList.add("active");
-}
+  // --- 3. REGISTRATION FORM SUBMIT ---
+  if (registerForm) {
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("Submit triggered! Sending data to PHP...");
 
-// Open forgot modal from login link
-forgotLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  openSpecificModal(forgotModal);
-});
+      const formData = new FormData(registerForm);
 
-// Close buttons inside modals
-closeButtons.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    const modal = this.closest(".modal-overlay");
-    modal.classList.remove("active");
+      try {
+        const response = await fetch("../../backend/api/auth/register.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        // Get raw text first to catch PHP errors
+        const rawText = await response.text();
+        console.log("Server Response:", rawText);
+
+        // Try to parse as JSON
+        const result = JSON.parse(rawText);
+
+        if (result.status === "success") {
+          alert("Salamat! " + result.message);
+          window.location.href = "index.html";
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (error) {
+        console.error("System Error:", error);
+        alert(
+          "The server sent back an invalid response. Check the Console (F12) to see the PHP error.",
+        );
+      }
+    });
+  }
+
+  // --- 4. MODAL LOGIC (Safety checked for Login Page) ---
+  function openSpecificModal(targetModal) {
+    if (!targetModal) return;
+    [forgotModal, verifyModal, newPasswordModal].forEach((m) =>
+      m?.classList.remove("active"),
+    );
+    targetModal.classList.add("active");
+  }
+
+  if (forgotLink) {
+    forgotLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      openSpecificModal(forgotModal);
+    });
+  }
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      this.closest(".modal-overlay")?.classList.remove("active");
+    });
   });
-});
 
-// Close when clicking dark overlay background
-window.addEventListener("click", (e) => {
-  if (e.target.classList.contains("modal-overlay")) {
-    e.target.classList.remove("active");
-  }
-});
+  if (backToEmail)
+    backToEmail.addEventListener("click", () => openSpecificModal(forgotModal));
+  if (backToVerify)
+    backToVerify.addEventListener("click", () =>
+      openSpecificModal(verifyModal),
+    );
 
-// Progress dot navigation
-firstDots.forEach((dot) => {
-  dot.addEventListener("click", () => openSpecificModal(forgotModal));
-});
+  // Close on overlay click
+  window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal-overlay")) {
+      e.target.classList.remove("active");
+    }
+  });
+  const loginForm = document.getElementById("login-form");
 
-secondDots.forEach((dot) => {
-  dot.addEventListener("click", () => openSpecificModal(verifyModal));
-});
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-thirdDots.forEach((dot) => {
-  dot.addEventListener("click", () => openSpecificModal(newPasswordModal));
-});
+      const email = document.querySelector("#email").value;
+      const password = document.querySelector("#password").value;
 
-backToEmail.addEventListener("click", function () {
-  openSpecificModal(forgotModal);
-});
-backToVerify.addEventListener("click", function () {
-  openSpecificModal(verifyModal);
-});
-toggleNewPassword.addEventListener("click", function () {
-  if (newPasswordShow.type === "password") {
-    newPasswordShow.type = "text";
-    toggleNewPassword.textContent = "Hide";
-  } else {
-    newPasswordShow.type = "password";
-    toggleNewPassword.textContent = "Show";
+      try {
+        const response = await fetch("../../backend/api/auth/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+
+        // Inside the login form submit event in auth.js
+        if (result.status === "success") {
+          // Store the full name as a single string
+          const fullName = `${result.data.user.first_name} ${result.data.user.last_name}`;
+          localStorage.setItem("userName", fullName);
+
+          window.location.href = "dashboard.html";
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Check the console for details.");
+      }
+    });
   }
 });

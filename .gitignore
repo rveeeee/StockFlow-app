@@ -12,3 +12,6 @@ Thumbs.db
 # Editor folders
 .vscode/
 .idea/
+
+# Database Credentials (CRITICAL for security)
+backend/config/database.php
